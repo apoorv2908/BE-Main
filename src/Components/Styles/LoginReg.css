@@ -1,0 +1,102 @@
+.bannerwindow {
+  height: 200px;
+
+  width: 100%;
+}
+
+.banner-window2 {
+  height: 150px;
+
+  width: 100%;
+}
+
+.disk {
+  background-image: url("../Assets/banner-3.webp");
+  background-size: cover;
+  background-repeat: no-repeat;
+  height: 120px;
+  background-position: center;
+}
+/* Custom button style */
+.btn-custom {
+  background-color: #0a1172;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+}
+
+.btn-custom:hover {
+  background-color: #000e3a;
+  color: white;
+}
+
+.miti {
+  margin-top: 100px;
+}
+
+/* Banner image styling */
+.banner-window {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+
+/* Form card styling */
+.card {
+  border-radius: 10px;
+}
+
+/* Text and button colors */
+
+/* Modal custom styles */
+.modal-header {
+  background-color: #0a1172;
+  color: white;
+}
+
+.mata {
+  background-color: #192152;
+}
+
+/* Toggle button styling */
+.toggle-buttons {
+  display: flex;
+  justify-content: center;
+  position: relative;
+  width: 100%;
+}
+
+.toggle-btn {
+  width: 50%;
+  padding: 10px;
+  font-weight: bold;
+  color: #0a1172;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.toggle-btn.active {
+  background-color: #0a1172;
+  color: white;
+}
+
+.toggle-slider {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 50%;
+  background-color: #0a1172;
+  transition: left 0.3s ease;
+  z-index: -1;
+  border-radius: 10px;
+}
+
+.toggle-slider.left {
+  left: 0;
+}
+
+.toggle-slider.right {
+  left: 50%;
+}

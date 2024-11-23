@@ -1,0 +1,65 @@
+.containery {
+    background-color: white;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    padding: 20px;
+    margin-top: 20px;
+  }
+  
+  .book-coverx {
+    max-width: 100%;
+    border-radius: 8px;
+  }
+  
+  .pre-wrap {
+    white-space: pre-wrap;
+    width: 100%;
+  }
+  
+  .hipi{
+    height: 550px;
+  }
+.challa:hover{
+background-color: limegreen;
+color: white;
+cursor: pointer;
+transition: 1s;
+padding: 5px;
+}
+
+.diskcha{
+  background-image: url("../Assets/a3.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  height: 120px;
+  background-position: center;
+  margin-bottom: 20px;
+}
+
+
+  .zo {
+    background-image: url('../Assets/banner-3.jpg'); 
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.chapter-box{
+  background-color: lightgray;
+  margin-top: 10px;
+  padding: 5px;
+  border-radius: 5px;
+}
+
+.chapter-box:hover{
+  font-weight: bold;
+}
+
+.share-logo{
+  height: 25px;
+  width: 25px;
+}
+
+.himani:hover{
+ font-weight: bold;
+
+}

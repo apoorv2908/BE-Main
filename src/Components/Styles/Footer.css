@@ -1,0 +1,43 @@
+/* Footer.css */
+
+footer {
+    background-color: #111;
+    color: #fff;
+}
+
+footer a {
+    color: #fff;
+}
+
+footer a:hover {
+    color: #ddd;
+}
+
+footer h5 {
+    color: #fff;
+}
+
+footer ul {
+    padding-left: 0;
+}
+
+footer ul li {
+    list-style: none;
+    margin-bottom: 10px;
+}
+
+footer ul li i {
+    margin-right: 10px;
+}
+
+footer .bg-secondary {
+    background-color: #222 !important;
+}
+
+footer .fab, footer .fas {
+    font-size: 18px;
+}
+
+footer .fab:hover, footer .fas:hover {
+    color: #ddd;
+}

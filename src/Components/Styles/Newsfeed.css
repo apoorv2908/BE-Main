@@ -1,0 +1,36 @@
+.card {
+    border: none;
+    overflow: hidden;
+  }
+  
+  .card-img-top {
+    height: 200px;
+    object-fit: cover;
+  }
+  
+  .card-title {
+    font-weight: bold;
+  }
+  
+  .card-subtitle {
+    color: #888;
+  }
+  
+  .card-text {
+    color: #555;
+  }
+  
+  button {
+    padding: 0;
+    color: #007bff;
+    border: none;
+    background: none;
+  }
+  
+  
+  .mnr{
+    color: orangered;
+    letter-spacing: 3px;
+    font-weight: bold;
+
+  }

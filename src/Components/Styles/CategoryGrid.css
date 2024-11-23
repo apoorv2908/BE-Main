@@ -1,0 +1,42 @@
+/* src/CategoryGrid.css */
+
+.text-center {
+    text-align: center;
+  }
+  
+  .mb-4 {
+    margin-bottom: 1.5rem;
+  }
+  
+  .py-5 {
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+  }
+  
+  .px-4 {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+  
+  .card {
+    border: none;
+    overflow: hidden;
+  }
+  
+  .card img {
+    height: 200px;
+    object-fit: cover;
+  }
+
+  
+  .btn-warning {
+    background-color: #ff7f00;
+    border-color: #ff7f00;
+  }
+  
+  .rn1{
+    color: orangered;
+    letter-spacing: 3px;
+    font-weight: bold;
+
+  }

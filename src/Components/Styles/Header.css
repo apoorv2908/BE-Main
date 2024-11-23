@@ -1,0 +1,75 @@
+/* src/components/Header.css */
+
+.custom-navbar {
+    transition: background-color 0.3s ease;
+}
+
+.custom-navbar {
+   /*background-image: url('../Assets/banner-2.webp'); */
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.custom-navbar.scrolled {
+    background-image: none;
+    background-color: #f8f9fa; /* This matches Bootstrap's default light background color */
+    transition: background-color 0.3s ease;
+}
+
+.kabra{
+    visibility: hidden;
+}
+
+
+
+.navbar-brand, .nav-link, .navbar-toggler {
+    transition: color 0.3s ease;
+}
+
+.mno{
+    height: 40px;
+    border-radius: 5px;
+}
+
+/* src/Components/Styles/LoginModal.css */
+
+.modal.show .modal-dialog.custom-modal-width {
+    max-width: 80% !important; /* Use !important to override any other styles */
+}
+
+
+
+.modal-body .d-flex {
+    gap: 20px;
+}
+
+.modal-body {
+    display: flex;
+    flex-direction: column;
+
+}
+
+.model-content{
+    max-width: 1300px; /* Adjust this width as needed */
+    width: 0px;
+
+}
+
+
+.custom-navbar.scrolled .navbar-brand,
+.custom-navbar.scrolled .nav-link,
+.custom-navbar.scrolled .navbar-toggler {
+    color: black; /* Color for text when scrolled */
+}
+
+
+.custom-navbar .navbar-brand,
+.custom-navbar .nav-link,
+.custom-navbar .navbar-toggler {
+    color: black; /* Color for text when not scrolled */
+}
+
+
+#login-dropdown{
+    border-radius: 0px;
+}

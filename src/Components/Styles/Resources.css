@@ -1,0 +1,31 @@
+
+.cda {
+    font-size: 2rem;
+    font-weight: bold;
+    margin-bottom: 20px;
+    background-image: url('../Assets/bg-2.jpg'); /* Use the correct path to your image */
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.resources-container {
+    padding: 20px;
+}
+
+.resources-boxes {
+    margin-top: 20px;
+}
+
+.resource-box {
+    flex: 1;
+    margin: 10px;
+    padding: 20px;
+    background-color: #f8f9fa;
+    border: 1px solid #dee2e6;
+    border-radius: 8px;
+    text-align: center;
+    font-size: 1.2rem;
+    min-width: 150px; /* Ensures the boxes have a minimum width */
+}
+
+

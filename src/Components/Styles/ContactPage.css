@@ -1,0 +1,55 @@
+.contact-page {
+    margin: 0 auto;
+    padding: 2rem;
+  }
+  
+  .contact-form {
+    border-right: 1px solid #ddd;
+    padding-right: 2rem;
+  }
+  
+  .contact-form h2 {
+    color: #e2725b;
+  }
+  
+  .contact-form .submit-btn {
+    background-color: #e2725b;
+    border: none;
+  }
+  
+  .customer-care {
+    padding-left: 2rem;
+  }
+  
+  .customer-care h2,
+  .customer-care h3 {
+    color: #333;
+  }
+  
+  .customer-care-info {
+    margin-top: 2rem;
+  }
+  
+  .customer-care-info .person {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1.5rem;
+  }
+  
+  .customer-care-info .person img {
+    border-radius: 50%;
+    margin-right: 1rem;
+  }
+  
+  .customer-care-info .person .info h5 {
+    margin: 0;
+  }
+  
+  .customer-care-info .person .info p {
+    margin: 0;
+  }
+  
+  .customer-care p span {
+    margin-right: 0.5rem;
+  }
+  
