@@ -56,20 +56,19 @@ const ContactPage = () => {
   return (
     <div className=" py-2">
       <div
-        className="p-3 h3 mx-3 text-center fw-bold"
+        className="p-3 h3 mx-3  fw-bold"
         style={{
-          background:
-            "linear-gradient(to right, #192152, #FF7F50, #FFA07A, white)",
+          background: "linear-gradient(to right, #192152,  white)",
           color: "white",
           marginTop: "80px",
         }}
       >
         CONTACT US
       </div>
-      <Row className="mt-4 mb-5 pb-5 bg-light rounded  px-4">
+      <Row className="mt-4 mb-5 pb-5  rounded  px-4">
         <Col md={6} className="contact-form mt-3">
           <h2>Reach out to us!</h2>
-          <p>
+          <p className="fw-bold">
             Got a question about Lancer? Are you interested in partnering with
             us? Have some suggestions or just want to say hi? Contact us.
           </p>
@@ -124,16 +123,18 @@ const ContactPage = () => {
                 as="textarea"
                 name="message"
                 rows={5}
-                placeholder="Message"
+                placeholder="Your Message"
                 value={formData.message}
                 onChange={handleChange}
                 required
               />
             </Form.Group>
             <br />
-            <Button variant="primary" type="submit" className="btn-custom">
-              Submit
-            </Button>
+            <div className="d-flex justify-content-end">
+              <Button variant="primary" type="submit" className="btn-custom">
+                Submit
+              </Button>
+            </div>
           </Form>
         </Col>
         <Col md={6} className="customer-care mt-3">

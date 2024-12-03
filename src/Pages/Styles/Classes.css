@@ -7,27 +7,27 @@
 }
 
 .zala {
-  background-image: url('../Assets/bg-7-full.jpg');
+  background-image: url("../Assets/bg-7-full.jpg");
   background-size: cover;
   background-repeat: no-repeat;
 }
 
 @media (max-width: 768px) {
   .book-item {
-      width: 45%;
+    width: 45%;
   }
 }
 
 @media (max-width: 576px) {
   .book-item {
-      width: 100%;
+    width: 100%;
   }
 }
 
 .book-item {
-  border: 1px solid #ddd;
-  padding: 15px;
-  background: #fff;
+  box-shadow: 0px 0px 4px lightgrey;
+  border: 1px solid lightgrey;
+  padding: 5px;
   transition: transform 0.3s;
   display: flex;
   flex-direction: column;

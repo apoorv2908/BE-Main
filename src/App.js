@@ -31,6 +31,7 @@ import MybookChapterpages from "./Pages/MybookChapterpages";
 import Bookpages2 from "./Pages/Bookpages2";
 import TestGenerator from "./Pages/TestGenerator";
 import Addquestion from "./Pages/Addquestion";
+import TestEdit from "./Pages/TestEdit";
 
 function App() {
   return (
@@ -172,11 +173,22 @@ function App() {
             />
 
             <Route
-              path="/test-generator/:teacher_id"
+              path="/test-generator/:teacherId"
               element={
                 <ProtectedRoute>
                   <Page title="Test Generator - Binary Education">
                     <TestGenerator />
+                  </Page>
+                </ProtectedRoute>
+              }
+            />
+
+            <Route
+              path="/edit-test/:test_id"
+              element={
+                <ProtectedRoute>
+                  <Page title="Test Generator - Binary Education">
+                    <TestEdit />
                   </Page>
                 </ProtectedRoute>
               }

@@ -48,10 +48,9 @@ const Subjects = () => {
         <div>
           {subjectName && (
             <div
-              className="p-3 h3 mx-3 text-center text-uppercase fw-bold"
+              className="p-3 h3 mx-3 text-uppercase fw-bold"
               style={{
-                background:
-                  "linear-gradient(to right, #192152, #FF7F50, #FFA07A, white)",
+                background: "linear-gradient(to right, #192152, white)",
                 color: "white ",
                 marginTop: "80px",
               }}
@@ -61,9 +60,11 @@ const Subjects = () => {
           )}
         </div>
 
-        <hr></hr>
         {/* Display the subject content */}
-        <div className="bg-light p-3 mt-3 rounded">
+        <div
+          className="bg-light p-3 mt-3 mx-5 mb-3 rounded"
+          style={{ boxShadow: "0px 0px 2px #192152 " }}
+        >
           <div dangerouslySetInnerHTML={{ __html: subjectContent }} />
         </div>
         <div className="bg-white  p-3 mb-5 rounded">
@@ -107,7 +108,7 @@ const Subjects = () => {
                       </div>
                     )}
                   </Link>
-                  <div className="h4 text-center">
+                  <div className="h4 fw-bold text-center text-uppercase">
                     <Link
                       to={`/book/${encodeId(book.book_id)}`}
                       className="book-link"

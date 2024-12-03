@@ -92,7 +92,7 @@ const Teacherlogin = () => {
   return (
     <div className="auth-container py-2">
       <div
-        className="p-3 h3 "
+        className="p-3 h3 fw-bold"
         style={{
           background: "linear-gradient(to right, #192152,  white)",
           color: "white",
@@ -136,7 +136,7 @@ const Teacherlogin = () => {
             className="mx-auto mb-5 bg-light rounded"
             style={{ boxShadow: "0px 0px 3px #192152 " }}
           >
-            <Form onSubmit={handleLogin} className="mb-5 pt-3 pb-3">
+            <Form onSubmit={handleLogin} className="mb-5 pt-3 pb-3 fw-bold">
               <p>Enter Your Login Crendentials</p>
               <hr></hr>
               <Form.Group controlId="loginEmail">
@@ -178,7 +178,7 @@ const Teacherlogin = () => {
         ) : (
           // Sign Up Form
           <Col
-            md={5}
+            md={8}
             className="mx-auto mb-5 bg-light rounded"
             style={{ boxShadow: "0px 0px 3px #192152 " }}
           >

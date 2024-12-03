@@ -1,213 +1,278 @@
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import config from "../config";
-import { Link } from "react-router-dom";
+import "bootstrap/dist/css/bootstrap.min.css";
 import jsPDF from "jspdf";
 import "jspdf-autotable";
-import { Button, Modal } from "react-bootstrap";
-import { useNavigate } from "react-router-dom";
 
 const TestList = () => {
   const { teacher_id } = useParams();
   const [tests, setTests] = useState([]);
-  const [editing, setEditing] = useState({});
-  const [showDeleteModal, setShowDeleteModal] = useState(false);
-  const [testToDelete, setTestToDelete] = useState(null);
-  const navigate = useNavigate();
+  const [activeSections, setActiveSections] = useState({});
 
   useEffect(() => {
     fetchTests();
-  }, []);
+  }, [teacher_id]);
 
   const fetchTests = () => {
     fetch(
       `${config.apiBaseUrl}/fullmarks-user/addtnl/fetch_test.php?teacher_id=${teacher_id}`
     )
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error("Network response was not ok");
-        }
-        return response.json();
-      })
-      .then((data) => {
-        if (data.status === "success") {
-          setTests(data.data);
-        } else {
-          console.error("Error fetching tests:", data.message);
-        }
-      })
-      .catch((error) => console.error("Error fetching tests:", error));
+      .then((response) => response.json())
+      .then((data) => setTests(data))
+      .catch((error) => console.error("Error fetching assigned books:", error));
   };
 
-  const handleEditToggle = (testId, sectionId) => {
-    setEditing({ testId, sectionId });
+  const toggleSection = (testId, sectionIndex) => {
+    setActiveSections((prevActiveSections) => ({
+      ...prevActiveSections,
+      [testId]:
+        prevActiveSections[testId] === sectionIndex ? null : sectionIndex,
+    }));
   };
 
-  const handleSave = async (testId, sectionId, updatedData) => {
-    try {
-      const response = await fetch(
-        `${config.apiBaseUrl}/fullmarks-user/addtnl/update_section.php`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ testId, sectionId, updatedData }),
-        }
-      );
-      if (response.ok) {
-        setEditing({});
-        fetchTests(); // Refresh the data
-      } else {
-        throw new Error("Error updating section");
-      }
-    } catch (error) {
-      console.error("Error saving test data:", error);
-    }
-  };
-
-  const handleDeleteTest = async () => {
-    try {
-      const response = await fetch(
-        `${config.apiBaseUrl}/fullmarks-user/addtnl/delete_test.php`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ testId: testToDelete }),
-        }
-      );
-      if (response.ok) {
-        setShowDeleteModal(false);
-        setTestToDelete(null);
-        fetchTests(); // Refresh the data
-      } else {
-        throw new Error("Error deleting test");
-      }
-    } catch (error) {
-      console.error("Error deleting test:", error);
-    }
-  };
-
-  const handleDownloadPDF = (test) => {
+  const downloadPDF = (test) => {
     const doc = new jsPDF();
+
+    // School logo
+
+    // School name
     doc.setFontSize(16);
-    doc.text(`Test Title: ${test.test_title}`, 10, 10);
-    doc.setFontSize(12);
-    doc.text(`Test Date: ${test.test_date}`, 10, 20);
-    doc.text(`Max Marks: ${test.max_marks}`, 10, 30);
+    doc.text(test.school_name, 105, 35, { align: "center" });
 
-    let yOffset = 50;
-    test.sections.forEach((section, index) => {
-      doc.setFontSize(14);
-      doc.text(`Section ${index + 1}:`, 10, yOffset);
+    // Horizontal line
+    doc.line(10, 55, 200, 55);
+
+    // Test details
+    doc.setFontSize(20);
+    doc.text(test.test_name, 105, 65, { align: "center" });
+
+    // Test metadata
+    doc.setFontSize(10);
+    doc.text(`Test Code: ${test.test_code || "N/A"}`, 14, 80);
+    doc.text(`Number of Sections: ${test.number_of_sections}`, 14, 88);
+    doc.text(`Test Date: ${test.test_date}`, 160, 80);
+    doc.text(`Max Marks: ${test.max_marks}`, 160, 88);
+    doc.text(`Time Allotted: ${test.time_allotted} minutes`, 14, 96);
+
+    // Horizontal line
+    doc.line(10, 100, 200, 100);
+
+    // Test instructions
+    doc.text("Test Instructions:", 108, 105, { align: "center" });
+    doc.text(test.test_instructions || "N/A", 14, 116);
+
+    // Horizontal line
+    doc.line(10, 120, 200, 120);
+
+    // Sections
+    let currentY = 130;
+    test.sections.forEach((section, sectionIndex) => {
       doc.setFontSize(12);
-      yOffset += 10;
-      doc.text(`Introduction: ${section.section_intro}`, 10, yOffset);
-      yOffset += 10;
+      doc.text(`Section ${sectionIndex + 1}`, 14, currentY);
+      currentY += 10;
 
-      section.questions.forEach((question, qIndex) => {
+      section.questions.forEach((question, questionIndex) => {
+        // Question Text
+        doc.setFontSize(10);
         doc.text(
-          `${qIndex + 1}. [${question.question_type}] ${
-            question.question_title
-          }`,
-          10,
-          yOffset
+          `Question ${questionIndex + 1}: ${question.question_text}`,
+          14,
+          currentY
         );
-        yOffset += 10;
 
-        if (yOffset > 270) {
-          doc.addPage();
-          yOffset = 20;
+        // Marks
+        doc.text(` ${question.marks}`, 180, currentY, { align: "right" });
+        currentY += 8;
+
+        // Options (only if question type is MCQ)
+        if (
+          question.question_type === "mcq" &&
+          question.options &&
+          question.options !== "null"
+        ) {
+          const options = JSON.parse(question.options);
+          doc.text(`Options: ${options.join(", ")}`, 14, currentY);
+          currentY += 8;
+        }
+
+        // Question image
+        if (question.question_image) {
+          const imageUrl = `${config.apiBaseUrl}/${question.question_image}`;
+          doc.addImage(imageUrl, "JPEG", 14, currentY, 50, 30);
+          currentY += 35;
+        } else {
+          currentY += 5;
         }
       });
 
-      yOffset += 10;
+      // Horizontal line after each section
+      doc.line(10, currentY, 200, currentY);
+      currentY += 10;
     });
 
-    doc.save(`${test.test_title}_Question_Paper.pdf`);
+    doc.save(`${test.test_name}.pdf`);
   };
 
-  const handleEditClick = (testId) => {
-    navigate(`/edit-test/${testId}`);
+  const deleteTest = (testId) => {
+    fetch(`${config.apiBaseUrl}/fullmarks-user/addtnl/delete_test.php`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded",
+      },
+      body: `test_id=${testId}`,
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.status === "success") {
+          alert("Test deleted successfully.");
+          fetchTests(); // Refresh the list of tests after deleting
+        } else {
+          alert(data.message);
+        }
+      })
+      .catch((error) => console.error("Error deleting test:", error));
   };
 
   return (
-    <div className="container">
-      <div className="d-flex justify-content-between mt-4 mb-4">
-        <h2>Test List</h2>
+    <div className="container test-list">
+      <div className="d-flex justify-content-end">
         <Link to={`/test-generator/${teacher_id}`}>
-          <button className="btn btn-primary">+ Add New Test</button>
+          <button className="btn btn-custom ">+ Add New Test</button>
         </Link>
       </div>
 
-      {/* Check if tests array is empty */}
-      {tests.length === 0 ? (
-        <div className="text-center mt-5">
-          <h4>No tests found</h4>
-          <p>Click on "Add New Test" to create one.</p>
-        </div>
-      ) : (
+      {tests.length > 0 ? (
         tests.map((test) => (
-          <div
-            key={test.test_id}
-            className="card mb-3"
-            style={{ boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.1)" }}
-          >
+          <div key={test.test_id} className="card ">
             <div className="card-body">
               <div className="d-flex justify-content-between">
+                <h4>{test.test_name}</h4>
+
                 <div>
-                  <h5>Test Title: {test.test_title}</h5>
-                  <p className="card-text">
-                    <strong>Date:</strong> {test.test_date} <br />
-                    <strong>Max Marks:</strong> {test.max_marks}
-                  </p>
-                </div>
-                <div
-                  className="d-flex align-items-start"
-                  style={{ gap: "10px" }}
-                >
-                  <button className="btn">
-                    <i className="bi bi-file-earmark-arrow-down"></i>
+                  <Link to={`/edit-test/${test.test_id}`}>
+                    <button className="btn mb-3 mr-2 btn-warning mx-2 btn-sm">
+                      <i className="bi bi-pencil mx-1"></i>
+                    </button>
+                  </Link>
+                  <button
+                    className="btn mb-3 btn-success btn-sm"
+                    onClick={() => downloadPDF(test)}
+                  >
+                    <i className="bi bi-file-earmark-arrow-down mx-1 "></i>
                   </button>
                   <button
-                    className="btn"
-                    onClick={() => handleEditClick(test.test_id)}
+                    className="btn mb-3 btn-danger btn-sm mx-2"
+                    onClick={() => deleteTest(test.test_id)}
                   >
-                    <i className="bi bi-pencil"></i>
-                  </button>
-                  <button
-                    className="btn"
-                    onClick={() => {
-                      setTestToDelete(test.test_id);
-                      setShowDeleteModal(true);
-                    }}
-                  >
-                    <i className="bi bi-trash3-fill"></i>
+                    <i className="bi bi-trash"></i>
                   </button>
                 </div>
               </div>
+              <div className="d-flex justify-content-start comb">
+                <p className="card-text ">
+                  <strong className="mx-1">Created On: </strong>{" "}
+                  {test.test_date}
+                </p>
+                <i className="bi bi-dot"></i>
+                <p className="card-text ">
+                  <strong>Maximum Marks:</strong> {test.max_marks}
+                </p>
+                <i className="bi bi-dot"></i>
+                <p className="card-text">
+                  <strong>Time Allotted:</strong> {test.time_allotted} minutes
+                </p>
+                <i className="bi bi-dot"></i>
+                <p className="card-text">
+                  <strong>Number of Sections:</strong> {test.number_of_sections}
+                </p>
+              </div>
+              <hr></hr>
+
+              {test.sections && test.sections.length > 0 && (
+                <div
+                  className="accordion mt-3"
+                  id={`accordion-${test.test_id}`}
+                >
+                  {test.sections.map((section, sectionIndex) => (
+                    <div key={section.section_id} className="card mt-2">
+                      <div
+                        className="card-header d-flex justify-content-between align-items-center"
+                        onClick={() =>
+                          toggleSection(test.test_id, sectionIndex)
+                        }
+                        style={{ cursor: "pointer" }}
+                      >
+                        <h5 className="mb-0">{section.section_name}</h5>
+                        <button className="btn btn-link">
+                          {activeSections[test.test_id] === sectionIndex
+                            ? "Hide"
+                            : "Show"}{" "}
+                          Section
+                        </button>
+                      </div>
+                      {activeSections[test.test_id] === sectionIndex && (
+                        <div className="card-body">
+                          {section.questions &&
+                            section.questions.length > 0 && (
+                              <div className="questions">
+                                {section.questions.map(
+                                  (question, questionIndex) => (
+                                    <div
+                                      key={question.question_id}
+                                      className="question-item mb-3"
+                                    >
+                                      <p className="text-center">
+                                        <strong>
+                                          Question {questionIndex + 1}
+                                        </strong>
+                                      </p>
+                                      <p>
+                                        <strong>Question Text:</strong>{" "}
+                                        {question.question_text}
+                                      </p>
+                                      <p>
+                                        <strong>Question Type:</strong>{" "}
+                                        {question.question_type}
+                                      </p>
+                                      <p>
+                                        <strong>Marks:</strong> {question.marks}
+                                      </p>
+                                      {question.question_type === "mcq" &&
+                                        question.options &&
+                                        question.options !== "null" && (
+                                          <p>
+                                            <strong>Options:</strong>{" "}
+                                            {JSON.parse(question.options).join(
+                                              ", "
+                                            )}
+                                          </p>
+                                        )}
+                                      {question.question_image && (
+                                        <img
+                                          src={`${config.apiBaseUrl}/${question.question_image}`}
+                                          alt="Question"
+                                          className="img-fluid question-image"
+                                        />
+                                      )}
+                                    </div>
+                                  )
+                                )}
+                                <hr></hr>
+                              </div>
+                            )}
+                        </div>
+                      )}
+                    </div>
+                  ))}
+                </div>
+              )}
             </div>
           </div>
         ))
+      ) : (
+        <p>No tests available</p>
       )}
-
-      {/* Delete Confirmation Modal */}
-      <Modal show={showDeleteModal} onHide={() => setShowDeleteModal(false)}>
-        <Modal.Header closeButton>
-          <Modal.Title>Confirm Delete</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>Are you sure you want to delete this test?</Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={() => setShowDeleteModal(false)}>
-            Cancel
-          </Button>
-          <Button variant="danger" onClick={handleDeleteTest}>
-            Delete
-          </Button>
-        </Modal.Footer>
-      </Modal>
     </div>
   );
 };

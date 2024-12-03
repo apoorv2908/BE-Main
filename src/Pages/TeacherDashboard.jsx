@@ -75,10 +75,9 @@ const TeacherDashboard = () => {
   return (
     <div className="ap py-2">
       <div
-        className="p-3 h3 "
+        className="p-3 h3 mx-3  fw-bold "
         style={{
-          background:
-            "linear-gradient(to right, #192152, #FF7F50, #FFA07A, white)",
+          background: "linear-gradient(to right, #192152, white)",
           color: "white",
           marginTop: "80px",
         }}
@@ -93,7 +92,7 @@ const TeacherDashboard = () => {
                 <img
                   src={
                     userDetails?.profile_pic
-                      ? `${config.apiBaseUrl}/fullmarks-server/uploads/teachers/${userDetails.profile_pic}`
+                      ? `${config.apiBaseUrl}/admin/fullmarks-server/uploads/teachers/${userDetails.profile_pic}`
                       : defaultProfilePic
                   }
                   alt="User Profile"
@@ -106,7 +105,11 @@ const TeacherDashboard = () => {
                 />
               </div>
               <h5 className="text-dark">{userDetails?.name}</h5>
-              <p className="text-dark">{userDetails?.email}</p>
+              <p className="text-dark">
+                {userDetails?.email}
+                <br></br>
+                TeacherId: {userDetails?.teacher_id}
+              </p>
             </div>
             <hr className="text-dark"></hr>
             <Button
@@ -152,12 +155,12 @@ const TeacherDashboard = () => {
           <Col lg={10}>
             {activeButton === "MyBooks" && (
               <div>
-                <h3 className="mb-4">My Books</h3>
+                <h3 className="mb-4 fw-bold">My Books</h3>
                 <hr></hr>
                 {assignedBooks.length > 0 ? (
                   <Row>
                     {assignedBooks.map((book) => (
-                      <Col md={4} key={book.book_teacher_id} className="mb-4">
+                      <Col md={3} key={book.book_teacher_id} className="mb-4">
                         <Link
                           to={`/book-details/${book.book_id}`}
                           style={{ textDecoration: "none", color: "inherit" }}
@@ -171,12 +174,6 @@ const TeacherDashboard = () => {
                                 style={{ objectFit: "cover" }}
                               />
                             )}
-                            <div className="fw-bold text-center mb-2">
-                              {book.book_name}
-                            </div>
-                            <button className="btn btn-warning">
-                              View Book
-                            </button>
                           </Card>
                         </Link>
                       </Col>
@@ -189,7 +186,7 @@ const TeacherDashboard = () => {
             )}
             {activeButton === "TestGenerator" && (
               <div>
-                <h3 className="mb-4">Test Generator</h3>
+                <h3 className="mb-4 fw-bold">Test Generator</h3>
                 <hr />
                 <TestList />
               </div>

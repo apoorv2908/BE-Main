@@ -1,6 +1,6 @@
 // LoginRequiredModal.js
-import React from 'react';
-import { Modal, Button } from 'react-bootstrap';
+import React from "react";
+import { Modal, Button } from "react-bootstrap";
 
 const LoginRequiredModal = ({ show, handleClose }) => {
   return (
@@ -8,7 +8,9 @@ const LoginRequiredModal = ({ show, handleClose }) => {
       <Modal.Header closeButton>
         <Modal.Title>Login Required</Modal.Title>
       </Modal.Header>
-      <Modal.Body>You need to log in to access the chapters.</Modal.Body>
+      <Modal.Body className="fw-bold h5">
+        You need to log in to access the chapters.
+      </Modal.Body>
       <Modal.Footer>
         <Button variant="secondary" onClick={handleClose}>
           Close

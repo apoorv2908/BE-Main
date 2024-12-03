@@ -25,9 +25,9 @@ const Aboutus = () => {
   return (
     <div className="shadow py-2">
       <div
-        className="p-3 h3 mx-3 text-center"
+        className="p-3 h3 mx-3 fw-bold"
         style={{
-          background: "linear-gradient(to right, #192152, #FF7F50, white)",
+          background: "linear-gradient(to right, #192152, white)",
           color: "white",
           marginTop: "80px",
         }}

@@ -1,0 +1,168 @@
+.test-generator {
+  max-width: 800px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+  text-align: center;
+  color: #333;
+  margin-bottom: 1.5rem;
+}
+
+.test-form .form-group {
+  margin-bottom: 1rem;
+}
+
+label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+
+input[type="text"],
+input[type="number"],
+input[type="date"],
+select,
+textarea {
+  width: 100%;
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-sizing: border-box;
+}
+
+textarea {
+  resize: vertical;
+}
+
+button {
+  padding: 0.7rem 1.5rem;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
+.add-section-button,
+.add-question-button,
+.search-question-button,
+.delete-section-button,
+.delete-question-button,
+.add-question-from-bank-button,
+.close-popup-button {
+  margin-top: 0.5rem;
+  margin-right: 0.5rem;
+}
+
+.delete-section-button,
+.delete-question-button,
+.add-question-from-bank-button {
+  background-color: #dc3545;
+}
+
+.delete-section-button:hover,
+.delete-question-button:hover,
+.add-question-from-bank-button:hover {
+  background-color: #c82333;
+}
+
+.submit-button {
+  width: 100%;
+  margin-top: 1.5rem;
+  background-color: #28a745;
+}
+
+.submit-button:hover {
+  background-color: #218838;
+}
+
+.section-form {
+  margin-top: 2rem;
+  padding: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+}
+
+.question-form {
+  margin-top: 1rem;
+  padding: 1rem;
+  border: 1px dashed #ccc;
+  border-radius: 5px;
+  background-color: #fcfcfc;
+}
+
+.mcq-options input {
+  margin-top: 0.5rem;
+}
+
+.question-bank-popup {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 90%;
+  max-width: 1200px;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+  padding: 2rem;
+  z-index: 1000;
+}
+
+.question-bank-list {
+  list-style: none;
+  padding: 0;
+  margin-top: 1.5rem;
+}
+
+.question-bank-item {
+  padding: 1rem;
+  border-bottom: 1px solid #ddd;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.close-popup-button {
+  background-color: #6c757d;
+  float: right;
+}
+
+.close-popup-button:hover {
+  background-color: #5a6268;
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 999;
+}
+
+@media (max-width: 600px) {
+  .test-generator {
+    padding: 1rem;
+  }
+
+  h2 {
+    font-size: 1.5rem;
+  }
+
+  button {
+    padding: 0.5rem 1rem;
+  }
+}

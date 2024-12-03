@@ -55,11 +55,8 @@ const Home = () => {
               </h2>
             </div>
           </div>
-          <p
-            className="text-center mb-3 h6 rn1"
-            style={{ color: "#0A1172" }}
-          ></p>
-          <div className="about-title text-warning h5 mt-5 fw-bold px-5 text-center ">
+
+          <div className="about-title h4 mt-5 mb-5 mx-5 fw-bold px-5 text-center ">
             ABOUT BINARY EDUCATION
           </div>
           <div className="px-5 fs-5 mb-4">

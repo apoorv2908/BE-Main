@@ -68,78 +68,79 @@ const Dashboardbooks = () => {
   };
 
   return (
-    <div className="mt-5 bg-white p-3 mb-5 rounded">
-      <div className="row">
-        <div className="border diskcha">
-          <p className="text-center h2 mt-4 text-uppercase fw-bold text-white">
-            {book.book_name}/ {book.class_name}/ {book.subject_name}
-          </p>
-        </div>
-        <div className="col-md-4 d-flex flex-column align-items-center">
+    <div className="py-2">
+      <div
+        className="p-3 h3 mx-3 fw-bold text-uppercase"
+        style={{
+          background: "linear-gradient(to right, #192152, white)",
+          color: "white",
+          marginTop: "80px",
+        }}
+      >
+        {book.book_name}
+        <br></br>
+        <span className="h6">{book.subject_name}</span>
+        <span className="h6"> - {book.class_name}</span>
+      </div>
+      <div className="row m-5">
+        <div className="col-md-6 d-flex flex-column align-items-center ">
           {book.book_cover && (
             <img
               src={`${config.apiBaseUrl}/admin/fullmarks-server/uploads/book_cover/${book.book_cover}`}
               alt="Book Cover"
-              className="book-cover hipi img-fluid rounded"
+              className="book-cover img-fluid rounded"
             />
           )}
         </div>
 
-        <div className="col-md-1"></div>
-
-        <div className="col-md-7 bg-light">
+        <div
+          className="col-md-5 mx-5"
+          style={{ boxShadow: "0px 0px 3px snow" }}
+        >
           <div className="d-flex justify-content-between mt-2">
-            <h4 className="fw-bold">{book.book_name}</h4>
-            <div>
-              <Dropdown className="mt-2">
-                <Dropdown.Toggle id="dropdown-basic">
-                  <i className="bi bi-three-dots-vertical"></i>{" "}
-                  {/* Menu Icon */}
-                </Dropdown.Toggle>
-
-                <Dropdown.Menu>
-                  <Dropdown.Item onClick={() => handleAllpageClick(book_id)}>
-                    <i className="bi bi-eye-fill"></i> View Book
-                  </Dropdown.Item>
-                  <Dropdown.Item as="a" href={book.book_download_link} download>
-                    <i className="bi bi-file-earmark-arrow-down"></i> Download
-                    Book
-                  </Dropdown.Item>
-
-                  {/* Android TPG Download */}
-                  <Dropdown.Item
-                    as="a"
-                    href={book.android_download_link}
-                    download
-                  >
-                    <i className="bi bi-file-arrow-down-fill"></i> Download TPG
-                  </Dropdown.Item>
-                  <Dropdown.Item onClick={handleShareClick}>
-                    <i className="bi bi-share"></i> Share Book
-                  </Dropdown.Item>
-                </Dropdown.Menu>
-              </Dropdown>
-            </div>
+            <h3 className="fw-bold text-uppercase">{book.book_name}</h3>
           </div>
           <p className="text-grey fst-italic pre-wrap">
             {book.book_description}
           </p>
           <hr />
-          <div className="fw-bold text-center text-underline">Chapters:</div>
+          <div
+            className="d-flex justify-content-center fs-5"
+            style={{ gap: "20px" }}
+          >
+            <i
+              className="bi bi-eye-fill"
+              onClick={() => handleAllpageClick(book_id)}
+            ></i>
+
+            <div href={book.book_download_link}>
+              <i className="bi bi-file-earmark-arrow-down"></i>
+            </div>
+
+            <i
+              className="bi bi-file-arrow-down-fill"
+              href={book.android_download_link}
+            ></i>
+
+            <i className="bi bi-share" onClick={handleShareClick}></i>
+          </div>
+          <hr></hr>
+          <div className="fw-bold text-center text-underline">
+            List of Chapters
+          </div>
           <div className="mt-2">
-            <ol>
+            <ul style={{ listStyleType: "none" }}>
               {chapters.map((chapter) => (
                 <div key={chapter.chapter_id}>
                   <li
-                    className="challa rounded mt-4"
                     onClick={() => handleChapterClick(chapter.chapter_id)}
+                    className=" p-3 mt-2 bg-light custom-layout-chapters  rounded border"
                   >
                     {chapter.chapter_title}
                   </li>
-                  <hr />
                 </div>
               ))}
-            </ol>
+            </ul>
           </div>
         </div>
       </div>

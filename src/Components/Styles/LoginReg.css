@@ -19,8 +19,9 @@
 }
 /* Custom button style */
 .btn-custom {
-  background-color: #0a1172;
-  color: white;
+  background-color: rgb(196, 189, 189);
+  color: black;
+  font-weight: bold;
   border: none;
   padding: 10px 20px;
   font-weight: bold;

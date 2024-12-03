@@ -22,20 +22,21 @@ const Classes = () => {
         const data = await response.json();
         if (Array.isArray(data)) {
           setBooks(data);
-          if (data.length > 0) {
-            setClassName(data[0].class_name); // Adjust based on actual data
-          }
+
+          setClassName(data[0].class_name); // Adjust based on actual data
         } else {
           console.error("Unexpected response data:", data);
           setBooks([]);
+          setClassName(className);
         }
       } catch (error) {
         console.error("Error fetching book details:", error);
+        setClassName(className);
       }
     };
 
     fetchBooks();
-  }, [decodedId]);
+  }, [decodedId, class_id]); // Dependency array includes class_id
 
   const handleSearchChange = (event) => {
     setSearchTerm(event.target.value);
@@ -49,20 +50,22 @@ const Classes = () => {
     <div>
       <div className="mt-2 py-2">
         <div>
-          <div
-            className="p-3 h3 mx-3 text-center text-uppercase fw-bold"
-            style={{
-              background: "linear-gradient(to right, #192152, #FF7F50, white)",
-              color: "white",
-              marginTop: "80px",
-            }}
-          >
-            {className}
-          </div>
-          <hr className="mt-3"></hr>
-          <div className="col-md-12 d-flex justify-content-between">
+          {className && (
+            <div
+              className="p-3 h3 mx-3 text-uppercase fw-bold"
+              style={{
+                background: "linear-gradient(to right, #192152, white)",
+                color: "white",
+                marginTop: "80px",
+              }}
+            >
+              {className}
+            </div>
+          )}
+
+          <div className="col-md-12 d-flex p-3 justify-content-between">
             <div className="text-black mt-2 h3 fw-bold">
-              Explore books for {className}
+              Explore Books for {className}
             </div>
             <div className="col-md-2">
               <input
@@ -75,7 +78,7 @@ const Classes = () => {
             </div>
           </div>
         </div>
-        <div className="bg-white  p-3 mt-3 mb-5 rounded">
+        <div className="bg-white p-3 mt-3 mb-5 rounded">
           <div className="row mt-3">
             {filteredBooks.length === 0 ? (
               <div className="col-12 text-center">
@@ -100,7 +103,7 @@ const Classes = () => {
                         </div>
                       )}
                     </Link>
-                    <div className="h4 text-center mt-2 flex-grow-1">
+                    <div className="h4 text-center fw-bold text-uppercase flex-grow-1">
                       <Link
                         to={`/book/${encodeId(book.book_id)}`}
                         className="book-link"
